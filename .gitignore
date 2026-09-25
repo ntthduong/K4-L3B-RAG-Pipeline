@@ -37,6 +37,11 @@ htmlcov/
 
 # Temp PDF conversion cache
 data/_tmp_pdf/
+data/crawl/*.pdf
+
+# Generated vector indexes / local caches
+chroma_db/
+pageindex_documents.json
 
 # Temp / cache
 .pytest_cache/

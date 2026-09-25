@@ -1,0 +1,77 @@
+[
+  {
+    "question": "What are the main IELTS Writing assessment criteria?",
+    "expected_answer": "IELTS Writing is assessed using criteria such as task achievement or task response, coherence and cohesion, lexical resource, and grammatical range and accuracy.",
+    "expected_context": "IELTS Writing band descriptors and key assessment criteria"
+  },
+  {
+    "question": "What does Task Response mean in IELTS Writing Task 2?",
+    "expected_answer": "Task Response refers to how well the essay addresses the question, develops a clear position, and supports ideas with relevant examples or explanation.",
+    "expected_context": "IELTS Writing Task 2 band descriptors"
+  },
+  {
+    "question": "What does Task Achievement mean in IELTS Writing Task 1?",
+    "expected_answer": "Task Achievement measures how well the response covers the requirements of the task, presents key features, and gives an appropriate overview where required.",
+    "expected_context": "IELTS Writing Task 1 band descriptors"
+  },
+  {
+    "question": "Why is an overview important in IELTS Academic Writing Task 1?",
+    "expected_answer": "An overview is important because it summarizes the main trends, differences, stages, or key features without focusing only on small details.",
+    "expected_context": "IELTS Writing Task 1 preparation and overview guidance"
+  },
+  {
+    "question": "What is Coherence and Cohesion in IELTS Writing?",
+    "expected_answer": "Coherence and Cohesion assess whether ideas are logically organized, paragraphs are clear, and linking devices are used appropriately.",
+    "expected_context": "IELTS Writing band descriptors and assessment criteria"
+  },
+  {
+    "question": "What is Lexical Resource in IELTS Writing?",
+    "expected_answer": "Lexical Resource assesses the range, accuracy, and appropriacy of vocabulary used in the writing response.",
+    "expected_context": "IELTS Writing band descriptors"
+  },
+  {
+    "question": "What is Grammatical Range and Accuracy in IELTS Writing?",
+    "expected_answer": "Grammatical Range and Accuracy assesses the variety and accuracy of sentence structures, including control of grammar and punctuation.",
+    "expected_context": "IELTS Writing band descriptors"
+  },
+  {
+    "question": "How can candidates improve IELTS Writing band score?",
+    "expected_answer": "Candidates can improve by answering the task directly, organizing ideas clearly, using precise vocabulary, improving grammar accuracy, and practicing under test conditions.",
+    "expected_context": "IELTS writing tips and assessment criteria articles"
+  },
+  {
+    "question": "What should be included in an IELTS Writing Task 1 response?",
+    "expected_answer": "A Task 1 response should introduce the visual information, include a clear overview, and describe the most important features with relevant data.",
+    "expected_context": "IELTS Academic Writing Task 1 preparation tips"
+  },
+  {
+    "question": "What should be included in an IELTS Writing Task 2 essay?",
+    "expected_answer": "A Task 2 essay should answer all parts of the question, present a clear position, develop main ideas, and support them with relevant examples.",
+    "expected_context": "IELTS Writing Task 2 band descriptors and writing guidance"
+  },
+  {
+    "question": "Why should IELTS Writing candidates avoid memorized answers?",
+    "expected_answer": "Memorized answers may not address the specific question and can reduce task response quality if they are not relevant or naturally developed.",
+    "expected_context": "IELTS teacher guidance and writing preparation materials"
+  },
+  {
+    "question": "How is IELTS Writing scored?",
+    "expected_answer": "IELTS Writing is scored by trained examiners using published band descriptors across the assessment criteria for each writing task.",
+    "expected_context": "IELTS writing band descriptors and teacher guide"
+  },
+  {
+    "question": "What is the difference between IELTS Writing Task 1 and Task 2?",
+    "expected_answer": "Task 1 requires describing or summarizing given information, while Task 2 requires writing an essay in response to a point of view, argument, or problem.",
+    "expected_context": "IELTS test format writing guidance"
+  },
+  {
+    "question": "What are common IELTS Writing weaknesses?",
+    "expected_answer": "Common weaknesses include not answering the question fully, weak paragraph organization, limited vocabulary, inaccurate grammar, and missing an overview in Task 1.",
+    "expected_context": "IELTS writing tips and assessment criteria articles"
+  },
+  {
+    "question": "How can sources help answer IELTS Writing questions in this chatbot?",
+    "expected_answer": "Sources provide grounded evidence from IELTS band descriptors, teacher guidance, and writing preparation articles so answers can be cited and checked.",
+    "expected_context": "IELTS Writing corpus including official PDFs and article pages"
+  }
+]

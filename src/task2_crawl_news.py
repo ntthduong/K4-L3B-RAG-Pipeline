@@ -15,38 +15,106 @@ Cài browser trước khi chạy:
 
 import asyncio
 import json
+import re
+from datetime import datetime
+from html.parser import HTMLParser
 from pathlib import Path
+from urllib.request import Request, urlopen
 
 
 DATA_DIR = Path(__file__).parent.parent / "data" / "landing" / "news"
+URL_FILE = Path(__file__).parent.parent / "data" / "crawl" / "url.txt"
 
-ARTICLE_URLS = [
-    # TODO: Thêm ít nhất 5 public URL.
-]
+ARTICLE_URLS: list[str] = []
+
+
+class ArticleHTMLParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.title = ""
+        self._in_title = False
+        self._skip_depth = 0
+        self._current_tag = ""
+        self.parts: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        self._current_tag = tag
+        if tag == "title":
+            self._in_title = True
+        if tag in {"script", "style", "noscript", "svg"}:
+            self._skip_depth += 1
+        if tag in {"p", "h1", "h2", "h3", "li"}:
+            self.parts.append("\n")
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "title":
+            self._in_title = False
+        if tag in {"script", "style", "noscript", "svg"} and self._skip_depth:
+            self._skip_depth -= 1
+        if tag in {"p", "h1", "h2", "h3", "li"}:
+            self.parts.append("\n")
+        self._current_tag = ""
+
+    def handle_data(self, data: str) -> None:
+        text = " ".join(data.split())
+        if not text:
+            return
+        if self._in_title:
+            self.title += f" {text}"
+        elif not self._skip_depth and self._current_tag in {"p", "h1", "h2", "h3", "li"}:
+            self.parts.append(text)
+
+    def markdown(self) -> str:
+        text = " ".join(self.parts)
+        lines = [line.strip() for line in re.split(r"\s*\n\s*", text) if line.strip()]
+        return "\n\n".join(lines)
+
+
+def load_article_urls() -> list[str]:
+    """Read URLs under the news section in data/crawl/url.txt."""
+    if not URL_FILE.exists():
+        return ARTICLE_URLS
+
+    urls: list[str] = []
+    section = ""
+    for raw_line in URL_FILE.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        lowered = line.lower().rstrip(":")
+        if lowered in {"legal", "news"}:
+            section = lowered
+            continue
+        if section == "news" and line.startswith(("http://", "https://")):
+            urls.append(line)
+    return urls or ARTICLE_URLS
 
 
 async def crawl_article(url: str) -> dict:
-    # TODO: Implement crawling logic.
-    #
-    # from datetime import datetime
-    # from crawl4ai import AsyncWebCrawler
-    #
-    # async with AsyncWebCrawler() as crawler:
-    #     result = await crawler.arun(url=url)
-    #     return {
-    #         "url": url,
-    #         "title": result.metadata.get("title", "Unknown"),
-    #         "date_crawled": datetime.now().isoformat(),
-    #         "content_markdown": result.markdown,
-    #     }
-    raise NotImplementedError("Implement crawl_article")
+    request = Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urlopen(request, timeout=30) as response:
+        html = response.read().decode("utf-8", errors="replace")
+
+    parser = ArticleHTMLParser()
+    parser.feed(html)
+    title = " ".join(parser.title.split()) or url.rstrip("/").rsplit("/", 1)[-1]
+    content_markdown = parser.markdown()
+    if len(content_markdown) < 200:
+        raise ValueError("article content is too short")
+
+    return {
+        "url": url,
+        "title": title,
+        "date_crawled": datetime.now().isoformat(),
+        "content_markdown": content_markdown,
+    }
 
 
 async def crawl_all() -> None:
     """Crawl và lưu từng bài thành một file JSON."""
     DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-    for index, url in enumerate(ARTICLE_URLS, 1):
+    for index, url in enumerate(load_article_urls(), 1):
         try:
             article = await crawl_article(url)
             output = DATA_DIR / f"article_{index:02d}.json"
